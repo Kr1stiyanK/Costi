@@ -1,83 +1,23 @@
 .back-image {
     width: 100%;
     height: 100vh;
+    position: absolute;
     background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(0, 212, 255, 1) 13%, rgba(0, 0, 0, 1) 65%, rgba(2, 0, 36, 1) 95%);
     background-size: 200%;
     animation-name: eclipse;
     animation-duration: 15s;
     animation-direction: alternate;
     animation-iteration-count: infinite;
-    overflow: hidden;
 }
 
 @keyframes eclipse {
-    0% {
+    0%{
         background-size: 200%;
     }
-    50% {
+    50%{
         background-size: 130%;
     }
-    100% {
+    100%{
         background-size: 200%;
     }
-}
-
-.flex {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 100%;
-    animation-name: in;
-    animation-duration: 0.5s;
-}
-
-@keyframes in {
-    0% {
-        opacity: 0;
-        transform: translateX(10px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0px);
-    }
-}
-
-.submit-form {
-    color: #020024FF;
-    display: flex;
-    flex-direction: column;
-    width: 25%;
-}
-
-.input {
-    margin-top: 10px;
-    padding: 15px;
-    background: none;
-    border-color: black;
-    font-size: larger;
-}
-
-.logo-name {
-    color: #f0f0f3;
-}
-
-.btn {
-    padding: 15px;
-    background-color: #020024FF;
-    border: none;
-    margin-top: 10px;
-    color: white;
-    font-size: larger;
-}
-
-.btn:active {
-    background-color: #002e3a;
-}
-
-.text-containment {
-    margin-bottom: -15px;
-}
-
-::placeholder {
-    color: black;
 }
