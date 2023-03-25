@@ -2,7 +2,6 @@ import React, {ChangeEvent, useState} from "react";
 import "./SigningPage.css";
 import Loader from "../../Components/Loader";
 
-
 type Props = {
     goNext: () => void
 }
