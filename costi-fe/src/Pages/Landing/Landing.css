@@ -1,0 +1,66 @@
+h1::before {
+    transform: scaleX(0);
+    transform-origin: bottom right;
+}
+
+h1:hover::before {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+h1::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    inset: 0 0 0 0;
+    background: hsl(200 100% 80%);
+    z-index: -1;
+    transition: transform .3s ease;
+}
+
+h1 {
+    position: relative;
+    font-size: 5rem;
+}
+
+.homepage {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.sign-in-up {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.transition-image {
+    width: 75%;
+    background: rgb(255, 255, 255);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(0, 212, 255, 1) 13%, rgba(0, 0, 0, 1) 65%, rgba(2, 0, 36, 1) 95%);
+    background-repeat: no-repeat;
+    background-size: 500%;
+}
+
+.transition {
+    animation-name: newPage;
+    animation-duration: 0.5s;
+}
+
+@keyframes newPage {
+    0% {
+        transform: translateX(40%);
+    }
+    100% {
+        width: 500%;
+        transform: translateX(0%);
+        background-size: 200%;
+    }
+}
