@@ -1,14 +1,14 @@
 import React, {ChangeEvent, useState} from "react";
 import "./SigningPage.css";
-import Loader from "../../Components/Loader";
+import POST from "../../api";
 
 type Props = {
     goNext: () => void
 }
 
 const SigningPage = (props: Props) => {
-    const [username, setUsername] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
+    const [username, setUsername] = useState<string>(""),
+        [password, setPassword] = useState<string>("");
 
     const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
         setUsername(event.target.value)
@@ -19,7 +19,18 @@ const SigningPage = (props: Props) => {
     }
 
     const handleContinue = () => {
-
+        POST("/users/login", {
+            username: username,
+            password: password
+        }).then(data => {
+            //Need to confirm correct response for successful identification
+            console.log(data)
+            props.goNext()
+        }).catch(error => {
+                //Display errors
+                console.error('Error:', error)
+            }
+        );
     }
 
     return (
