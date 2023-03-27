@@ -11,12 +11,12 @@ public class AuthenticationController {
 
 
     @GetMapping("/register")
-    public ResponseEntity<String> register(){
+    public ResponseEntity<String> register() {
         return ResponseEntity.ok("register");
     }
 
     @GetMapping("/login")
-    public ResponseEntity<String> login(){
+    public ResponseEntity<String> login() {
         return ResponseEntity.ok("login");
     }
 }
