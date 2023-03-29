@@ -1,6 +1,6 @@
 package com.pts.costi_backend.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "users")

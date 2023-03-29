@@ -25,7 +25,7 @@ public class CostiPtsSecurityConfig {
     public SecurityFilterChain config(HttpSecurity http) throws Exception {
         //TODO: implement security urls and paths
         http.authorizeHttpRequests()
-                .requestMatchers("./.").permitAll();
+                .antMatchers("./.").permitAll();
         //TODO: implement security urls and paths
         return http.build();
     }
