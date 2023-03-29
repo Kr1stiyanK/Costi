@@ -1,9 +1,12 @@
 package com.pts.costi_backend.model.validations;
 
-import jakarta.validation.ConstraintValidator;
-import jakarta.validation.ConstraintValidatorContext;
+
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.PropertyAccessorFactory;
+
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+
 
 public class PasswordsMatchValidator implements ConstraintValidator<PasswordsMatch,Object> {
 
