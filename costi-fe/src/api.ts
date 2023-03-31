@@ -5,7 +5,7 @@ const POST = (endpoint: string, requestBody: any) => {
         method: 'POST',
         body: JSON.stringify(requestBody),
         headers: {
-            'Content-type': 'application/json; charset=UTF-8',
+            'Content-type': 'application/json; charset=UTF-8'
         }
     }).then(response => response.json())
 }
