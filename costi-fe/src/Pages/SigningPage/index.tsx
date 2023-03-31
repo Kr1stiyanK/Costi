@@ -20,6 +20,7 @@ const SigningPage = (props: Props) => {
 
     const handleContinue = () => {
         POST("/users/login", {
+            email: username + "@costi.com",
             username: username,
             password: password
         }).then(data => {

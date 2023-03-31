@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
 
 @Configuration
 public class CostiPtsSecurityConfig {
@@ -26,6 +27,8 @@ public class CostiPtsSecurityConfig {
         //TODO: implement security urls and paths
         http.authorizeHttpRequests()
                 .antMatchers("./.").permitAll();
+        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
+        http.csrf().disable();
         //TODO: implement security urls and paths
         return http.build();
     }
