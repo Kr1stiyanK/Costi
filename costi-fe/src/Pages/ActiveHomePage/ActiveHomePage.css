@@ -1,0 +1,23 @@
+.back-image-home {
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgb(6, 1, 63) 95%);
+    background-size: 200%;
+    animation-name: eclipse;
+    animation-duration: 15s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    overflow: hidden;
+}
+
+@keyframes eclipse {
+    0% {
+        background-size: 200%;
+    }
+    50% {
+        background-size: 130%;
+    }
+    100% {
+        background-size: 200%;
+    }
+}
