@@ -35,4 +35,8 @@ public class UserEntityService {
         this.userEntityRepository.save(newUser);
         return newUser;
     }
+
+    public boolean email(){
+        return true;
+    }
 }
