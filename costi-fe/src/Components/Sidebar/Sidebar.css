@@ -1,0 +1,27 @@
+h2{
+    color: white;
+    padding: 1rem;
+}
+
+.side-bar{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 18%;
+    min-width: 8rem;
+}
+
+.options{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.logout-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #0d0a3f;
+    border: none;
+    color: white;
+    font-size: larger;
+}

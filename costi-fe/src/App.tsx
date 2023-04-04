@@ -6,7 +6,7 @@ import {Page} from "./types";
 import GenericError from "./Pages/GenericError";
 import Landing from "./Pages/Landing";
 import SigningPage from "./Pages/SigningPage";
-import ActiveHomePage from "./Pages/ActiveHomePage";
+import DynamicHomepage from "./Pages/DynamicHomepage";
 
 function App() {
     const [step, setStep] = useState<Page>(t.LANDING)
@@ -20,19 +20,15 @@ function App() {
             case "LANDING":
                 return <Landing goNext={() => setStep((t.SIGNING_PAGE))}/>;
             case "SIGNING_PAGE":
-                return <SigningPage goNext={() => setStep(t.ACTIVE_HOME_PAGE)}/>
-            case "ACTIVE_HOME_PAGE":
-                return <ActiveHomePage goNext={() => homepageRouter()}/>
+                return <SigningPage goNext={() => setStep(t.DYNAMIC_HOME_PAGE)}/>
+            case "DYNAMIC_HOME_PAGE":
+                return <DynamicHomepage goNext={() => setStep(t.SIGNING_PAGE)}/>
             default:
                 return <GenericError/>
         }
     })()
 
-    return (
-        <>
-            {content}
-        </>
-    )
+    return (<>{content}</>)
 }
 
 export default App;
