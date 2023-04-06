@@ -16,6 +16,9 @@ const DynamicHomepage = (props: Props) => {
         switch (viewport) {
             case "HOME":
                 return <Home/>
+            case "LOGOUT":
+                props.goNext();
+                return
             default:
                 return <GenericError/>
         }
@@ -24,7 +27,7 @@ const DynamicHomepage = (props: Props) => {
     return (
         <React.Fragment>
             <div className={"back-image-home"}>
-                <Sidebar goNext={props.goNext}/>
+                <Sidebar goNext={setViewport}/>
 
                 <div className={"viewport"}>
                     {content}
