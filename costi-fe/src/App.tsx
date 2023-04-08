@@ -11,10 +11,6 @@ import DynamicHomepage from "./Pages/DynamicHomepage";
 function App() {
     const [step, setStep] = useState<Page>(t.LANDING)
 
-    const homepageRouter = () => {
-        setStep(t.GENERIC_ERROR);
-    }
-
     const content = (() => {
         switch (step) {
             case "LANDING":
