@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState} from "react";
 import "./SigningPage.css";
-import POST from "../../api";
+import {POST} from "../../api";
 
 type Props = {
     goNext: () => void
