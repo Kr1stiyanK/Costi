@@ -1,0 +1,17 @@
+.calendar-container {
+    background-color: aliceblue;
+    width: 80%;
+    height: 90%;
+    padding: 20px;
+    animation-name: appear;
+    animation-duration: 0.15s;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

@@ -12,6 +12,7 @@ const Sidebar = (props: Props) => {
             <div className={"options"}>
                 <h2 className={"logo"}>COSTI</h2>
                 <button className={"logout-btn"} onClick={() => props.goNext(t.HOME)}>HOME</button>
+                <button className={"logout-btn"} onClick={() => props.goNext(t.CALENDAR)}>CALENDAR</button>
             </div>
 
             <button onClick={() => props.goNext(t.LOGOUT)} className={"logout-btn"}>Log out</button>
