@@ -1,5 +1,6 @@
-import React, {useState} from "react";
+import React, {ChangeEvent, useState} from "react";
 import "./SigningPage.css";
+import {POST} from "../../api";
 import Login from "../../Components/Login";
 import Registration from "../../Components/Registration";
 

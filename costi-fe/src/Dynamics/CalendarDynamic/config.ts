@@ -3,6 +3,7 @@ import format from "date-fns/format";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import getDay from "date-fns/getDay";
+import {GET} from "../../api";
 
 export type event = {
     title: string,
@@ -23,7 +24,10 @@ export const localizer = dateFnsLocalizer({
     locales,
 });
 
-//Will come from backend
+// Will come from backend
+export const eventsApiCall = GET("/user-events");
+
+// TODO: Should be removed. Here for testing purposes
 export const events: event[] = [
     {
         title: "Big Meeting",
