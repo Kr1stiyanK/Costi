@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useState} from "react";
-import POST from "../../api";
+import {POST} from "../../api";
 import "./Registration.css";
 
 type Props = {
