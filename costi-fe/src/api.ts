@@ -1,6 +1,6 @@
-const url = "http://localhost:8080";
+const url: string = "http://localhost:8080";
 
-const POST = (endpoint: string, requestBody: any) => {
+export const POST = (endpoint: string, requestBody: any) => {
     return fetch(url + endpoint, {
         method: 'POST',
         body: JSON.stringify(requestBody),
@@ -10,4 +10,12 @@ const POST = (endpoint: string, requestBody: any) => {
     }).then(response => response.json())
 }
 
-export default POST;
+export const GET = (endpoint: string) => {
+    return fetch(url + endpoint, {
+        method: "GET",
+        body: JSON.stringify(""),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    })
+}

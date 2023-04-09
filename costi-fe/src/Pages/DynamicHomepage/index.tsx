@@ -4,6 +4,7 @@ import {Dynamic, HOME} from "../../Dynamics/DynamicTypes";
 import Home from "../../Dynamics/Home";
 import GenericError from "../GenericError";
 import Sidebar from "../../Components/Sidebar";
+import CalendarDynamic from "../../Dynamics/CalendarDynamic";
 
 type Props = {
     goNext: () => void
@@ -16,6 +17,8 @@ const DynamicHomepage = (props: Props) => {
         switch (viewport) {
             case "HOME":
                 return <Home/>
+            case "CALENDAR":
+                return <CalendarDynamic/>
             case "LOGOUT":
                 props.goNext();
                 return
