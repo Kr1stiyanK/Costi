@@ -23,10 +23,10 @@
 }
 
 .flex {
-
     display: flex;
     justify-content: space-around;
     align-items: center;
+    width: 100%;
     height: 100%;
     animation-name: in;
     animation-duration: 0.5s;
@@ -43,36 +43,8 @@
     }
 }
 
-.submit-form {
-    color: #020024FF;
-    display: flex;
-    flex-direction: column;
-    width: 25%;
-}
-
-.input {
-    margin-top: 10px;
-    padding: 15px;
-    background: none;
-    border-color: black;
-    font-size: larger;
-}
-
 .logo-name {
     color: #f0f0f3;
-}
-
-.btn {
-    padding: 15px;
-    background-color: #020024FF;
-    border: none;
-    margin-top: 10px;
-    color: white;
-    font-size: larger;
-}
-
-.btn:active {
-    background-color: #002e3a;
 }
 
 .text-containment {
@@ -93,11 +65,45 @@
     }
 }
 
-.log-background{
+.log-background {
     overflow: hidden;
     background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgb(6, 1, 63) 95%);
 }
 
-::placeholder {
-    color: black;
+/* Should be remade */
+.registration-element {
+    position: absolute;
+    left: 10%;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 500px;
+    height: 3rem;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    background: rgba(43, 43, 96, 0.5);
+    background: radial-gradient(circle, rgba(122, 122, 136, 0.2) 0%, rgba(0, 212, 255, 0) 20%);
+    background-position-y: 100%;
+}
+
+.registration-element:hover {
+    height: 4rem;
+    animation-name: popUp;
+    animation-duration: 0.1s;
+    background: radial-gradient(circle, rgba(38, 38, 94, 0.4) 0%, rgba(0, 212, 255, 0) 100%);
+    background-position-y: 100%;
+}
+
+@keyframes popUp {
+    from {
+        height: 3rem;
+        background: radial-gradient(circle, rgba(43, 43, 96, 0.2) 0%, rgba(0, 212, 255, 0) 20%);
+        background-position-y: 100%;
+    }
+    to {
+        height: 4rem;
+        background: radial-gradient(circle, rgba(38, 38, 94, 0.2) 0%, rgba(0, 212, 255, 0) 100%);
+        background-position-y: 100%;
+    }
 }
