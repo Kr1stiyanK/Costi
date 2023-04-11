@@ -3,7 +3,6 @@ package com.pts.costi_backend.model.validations;
 
 import com.pts.costi_backend.model.repositories.UserEntityRepository;
 
-
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 

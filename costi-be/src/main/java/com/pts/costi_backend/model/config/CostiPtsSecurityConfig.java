@@ -1,8 +1,5 @@
 package com.pts.costi_backend.model.config;
 
-import com.pts.costi_backend.model.UserEntity;
-import com.pts.costi_backend.model.dtos.UserRegistrationDTO;
-import com.pts.costi_backend.model.mapper.UserEntityMapper;
 import com.pts.costi_backend.model.repositories.UserEntityRepository;
 import com.pts.costi_backend.model.services.UserSecurityDetailsService;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class CostiPtsSecurityConfig {
@@ -26,27 +23,20 @@ public class CostiPtsSecurityConfig {
     public SecurityFilterChain config(HttpSecurity http) throws Exception {
         //TODO: implement security urls and paths
         http.authorizeHttpRequests()
-                .antMatchers("./.").permitAll();
-        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
-        http.csrf().disable();
-        //TODO: implement security urls and paths
+                .antMatchers("./.","/users/login","/users/register").permitAll()
+                .and()
+                .formLogin()
+                .loginPage("/users/login")
+                .usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
+                .passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY)
+                .defaultSuccessUrl("/");
         return http.build();
     }
 
-    @Bean
+   @Bean
     public UserDetailsService userDetailsService(UserEntityRepository userEntityRepository){
-        return new UserSecurityDetailsService(userEntityRepository);
-    }
-    
-    //TODO: UserEntityMapper
-    //Jira Source Issue: PC-8 https://ptscosti.atlassian.net/browse/PC-8
-    @Bean
-    public UserEntityMapper userEntityMapper(){
-       return new UserEntityMapper() {
-           @Override
-           public UserEntity userRegistrationDtoToUserEntity(UserRegistrationDTO userRegistrationDTO) {
-               return null;
-           }
-       };
-    }
+       return new UserSecurityDetailsService(userEntityRepository);
+   }
+
+
 }

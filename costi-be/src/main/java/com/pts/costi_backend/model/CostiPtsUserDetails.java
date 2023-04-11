@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class CostiPtsUserDetails implements UserDetails {
+public class CostiPtsUserDetails implements UserDetails{
 
     private String username;
     private String password;
