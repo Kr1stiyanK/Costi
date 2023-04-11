@@ -15,7 +15,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class CostiPtsSecurityConfig {
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new Pbkdf2PasswordEncoder();
     }
 
@@ -23,20 +23,22 @@ public class CostiPtsSecurityConfig {
     public SecurityFilterChain config(HttpSecurity http) throws Exception {
         //TODO: implement security urls and paths
         http.authorizeHttpRequests()
-                .antMatchers("./.","/users/login","/users/register").permitAll()
+                .antMatchers("./.", "/users/login", "/users/register").permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/users/login")
                 .usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
                 .passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY)
-                .defaultSuccessUrl("/");
+                .defaultSuccessUrl("/")
+                .and()
+                .csrf().disable();
         return http.build();
     }
 
-   @Bean
-    public UserDetailsService userDetailsService(UserEntityRepository userEntityRepository){
-       return new UserSecurityDetailsService(userEntityRepository);
-   }
+    @Bean
+    public UserDetailsService userDetailsService(UserEntityRepository userEntityRepository) {
+        return new UserSecurityDetailsService(userEntityRepository);
+    }
 
 
 }

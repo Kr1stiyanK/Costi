@@ -21,7 +21,6 @@ const Login = (props: Props) => {
 
     const handleContinue = () => {
         POST("/users/login", {
-            email: username + "@costi.com",
             username: username,
             password: password
         }).then(data => {
@@ -41,7 +40,7 @@ const Login = (props: Props) => {
         <input className={"input"}
                value={username}
                onChange={handleUsernameChange}
-               type="text"
+               type="username"
                id="username"
                name="username"
                placeholder="Username"
@@ -49,7 +48,7 @@ const Login = (props: Props) => {
         <input className={"input"}
                value={password}
                onChange={handlePasswordChange}
-               type="text"
+               type="password"
                id="password"
                name="password"
                placeholder="Password"

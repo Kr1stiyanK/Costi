@@ -7,7 +7,6 @@ import {Calendar} from "react-big-calendar";
 const CalendarDynamic = (() => {
     return (
         <div className={"calendar-container"}>
-
             <Calendar localizer={localizer}></Calendar>
         </div>
     );
