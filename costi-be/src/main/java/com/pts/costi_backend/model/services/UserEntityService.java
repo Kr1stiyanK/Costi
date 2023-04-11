@@ -7,6 +7,8 @@ import com.pts.costi_backend.model.repositories.UserEntityRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class UserEntityService {
 
@@ -20,15 +22,18 @@ public class UserEntityService {
     }
 
     public Boolean register(UserRegistrationDTO userRegistrationDTO) {
-        if (this.userEntityRepository.findUserEntityByUsername(userRegistrationDTO.getUsername()).isEmpty()) {
-            UserEntity newUser = new UserEntity(
-                    userRegistrationDTO.getEmail(),
-                    userRegistrationDTO.getUsername(),
-                    userRegistrationDTO.getPassword()
-                    //passwordEncoder.encode(userRegistrationDTO.getPassword())
-            );
-            this.userEntityRepository.save(newUser);
-            return true;
+        // Additional null check. Prevents null client from being registered
+        if(!Objects.equals(userRegistrationDTO.getUsername(), "")){
+            if (this.userEntityRepository.findUserEntityByUsername(userRegistrationDTO.getUsername()).isEmpty()) {
+                UserEntity newUser = new UserEntity(
+                        userRegistrationDTO.getEmail(),
+                        userRegistrationDTO.getUsername(),
+                        userRegistrationDTO.getPassword()
+//                    passwordEncoder.encode(userRegistrationDTO.getPassword())
+                );
+                this.userEntityRepository.save(newUser);
+                return true;
+            }
         }
         return false;
     }

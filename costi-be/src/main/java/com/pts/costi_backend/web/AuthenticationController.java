@@ -17,14 +17,14 @@ public class AuthenticationController {
     public AuthenticationController(UserEntityService userEntityService) {
         this.userEntityService = userEntityService;
     }
-    @GetMapping("/register")
-    public ResponseEntity<Boolean> register(@Valid UserRegistrationDTO userRegistrationDTO) {
+
+    @PostMapping("/register")
+    public ResponseEntity<Boolean> register(@RequestBody @Valid UserRegistrationDTO userRegistrationDTO) {
         return ResponseEntity.ok(this.userEntityService.register(userRegistrationDTO));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Boolean> login(@RequestParam() String username) {
-        System.out.println(username);
+    public ResponseEntity<Boolean> login(@RequestBody String username) {
         return ResponseEntity.ok(true);
     }
 }

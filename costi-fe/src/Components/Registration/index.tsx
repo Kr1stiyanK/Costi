@@ -42,10 +42,10 @@ const Registration = (props: Props) => {
             password: password,
             confirmPassword: confirmPassword
         }).then(data => {
-            //Need to confirm correct response for successful identification
-            console.log(data)
-            props.transition(true)
-            setTimeout(props.goNext, 500)
+            if (data) {
+                props.transition(true)
+                setTimeout(props.goNext, 500)
+            }
         }).catch(error => {
                 //Display errors
                 console.error('Error:', error)
@@ -58,7 +58,7 @@ const Registration = (props: Props) => {
         <input className={"input"}
                value={email}
                onChange={handleEmailChange}
-               type="text"
+               type="email"
                id="email"
                name="email"
                placeholder="Email"
@@ -66,7 +66,7 @@ const Registration = (props: Props) => {
         <input className={"input"}
                value={username}
                onChange={handleUsernameChange}
-               type="text"
+               type="username"
                id="username"
                name="username"
                placeholder="Username"
@@ -74,7 +74,7 @@ const Registration = (props: Props) => {
         <input className={"input"}
                value={password}
                onChange={handlePasswordChange}
-               type="text"
+               type="password"
                id="password"
                name="password"
                placeholder="Password"
@@ -82,7 +82,7 @@ const Registration = (props: Props) => {
         <input className={"input"}
                value={confirmPassword}
                onChange={handleConfirmPasswordChange}
-               type="text"
+               type="password"
                id="confirmPassword"
                name="confirmPassword"
                placeholder="Confirm Password"

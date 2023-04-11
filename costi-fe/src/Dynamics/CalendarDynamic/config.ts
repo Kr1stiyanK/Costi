@@ -13,7 +13,7 @@ export type event = {
 }
 
 export const locales = {
-    "en-US": require("date-fns/locale/en-US"),
+    "BG": require("date-fns/esm/locale/bg"),
 };
 
 export const localizer = dateFnsLocalizer({
@@ -25,24 +25,24 @@ export const localizer = dateFnsLocalizer({
 });
 
 // Will come from backend
-export const eventsApiCall = GET("/user-events");
+// export const eventsApiCall = GET("/user-events");
 
 // TODO: Should be removed. Here for testing purposes
 export const events: event[] = [
     {
         title: "Big Meeting",
         allDay: true,
-        start: new Date(2021, 6, 0),
-        end: new Date(2021, 6, 0),
+        start: new Date(2023, 4, 10),
+        end: new Date(2023, 4, 11),
     },
     {
         title: "Vacation",
-        start: new Date(2021, 6, 7),
-        end: new Date(2021, 6, 10),
+        start: new Date(2023, 6, 7),
+        end: new Date(2023, 6, 10),
     },
     {
         title: "Conference",
-        start: new Date(2021, 6, 20),
-        end: new Date(2021, 6, 23),
+        start: new Date(2023, 6, 20),
+        end: new Date(2023, 6, 23),
     },
 ];
