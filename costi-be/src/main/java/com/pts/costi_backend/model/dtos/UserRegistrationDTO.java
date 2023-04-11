@@ -23,7 +23,6 @@ public class UserRegistrationDTO {
 
     @NotNull
     @Size(min = 6, max = 25)
-
     private String password;
 
     @NotNull
