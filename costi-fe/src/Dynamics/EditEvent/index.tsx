@@ -19,7 +19,7 @@ const EditEvent = () => {
     }
 
     const handleSave = () => {
-        //POST Api call to save the new/edited event
+        // TODO: POST Api call to save the new/edited event
     }
 
     return (
