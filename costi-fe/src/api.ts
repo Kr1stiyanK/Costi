@@ -13,7 +13,6 @@ export const POST = (endpoint: string, requestBody: any) => {
 export const GET = (endpoint: string) => {
     return fetch(url + endpoint, {
         method: "GET",
-        body: JSON.stringify(""),
         headers: {
             "Content-type": "application/json; charset=UTF-8"
         }

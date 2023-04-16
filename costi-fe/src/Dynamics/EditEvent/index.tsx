@@ -45,7 +45,8 @@ const EditEvent = () => {
 
     const handleDeleteAllEvents = () => {
         GET("/application/delete-all")
-            .then((data) => console.log(data))
+            .then(data => data.json())
+            .then(openResponse => setUserEvents(openResponse))
             .catch(e => console.log("Error: " + e))
     }
 
@@ -86,9 +87,9 @@ const EditEvent = () => {
                 </button>
             </div>
 
-            <div className={"edit-delete-control"}>
+            {userEvents ? <div className={"edit-delete-control"}>
                 {
-                    events.map(it => it.start ?
+                    userEvents.map(it => it.start ?
                         <div className={"delete-control"}>
                             <p>{it.title}</p>
                             <p>{it.start.toDateString()}</p>
@@ -96,8 +97,9 @@ const EditEvent = () => {
                         </div>
                         : null)
                 }
-                <button className={"event-btn"}> Delete all</button>
+                <button className={"event-btn"} onClick={handleDeleteAllEvents}> Delete all</button>
             </div>
+            : null}
         </div>
     )
 }
