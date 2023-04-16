@@ -1,0 +1,42 @@
+.event-control {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+
+.event-input {
+    margin-top: 10px;
+    padding: 15px;
+    background-color: aliceblue;
+    border-color: black;
+    font-size: larger;
+    animation-name: appear;
+    animation-duration: 0.15s;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+::placeholder {
+    color: black;
+}
+
+.event-btn {
+    padding: 15px;
+    background-color: rgba(156, 187, 215, 0.31);
+    backdrop-filter: blur(20px) saturate(150%);
+    border: none;
+    margin-top: 10px;
+    color: white;
+    font-size: larger;
+}
+
+.event-btn:active {
+    background-color: #002e3a;
+}

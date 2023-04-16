@@ -5,6 +5,7 @@ import Home from "../../Dynamics/Home";
 import GenericError from "../GenericError";
 import Sidebar from "../../Components/Sidebar";
 import CalendarDynamic from "../../Dynamics/CalendarDynamic";
+import EditEvent from "../../Dynamics/EditEvent";
 
 type Props = {
     goNext: () => void
@@ -19,6 +20,8 @@ const DynamicHomepage = (props: Props) => {
                 return <Home/>
             case "CALENDAR":
                 return <CalendarDynamic/>
+            case "EDIT_EVENT":
+                return <EditEvent/>
             case "LOGOUT":
                 props.goNext();
                 return
