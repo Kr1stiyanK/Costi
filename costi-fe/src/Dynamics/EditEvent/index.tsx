@@ -1,56 +1,103 @@
 import "./EditEvent.css";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
+import {GET, POST} from "../../api";
+import {events} from "../config";
+import {Event} from "react-big-calendar";
 
 const EditEvent = () => {
-    const [title, setTitle] = useState<string>(),
-        [startDate, setStartDate] = useState<string>(),
-        [endDate, setEndDate] = useState<string>();
+    const [title, setTitle] = useState<string>(""),
+        [startDate, setStartDate] = useState<Date | null>(null),
+        [endDate, setEndDate] = useState<Date | null>(null),
+        [userEvents, setUserEvents] = useState<Event[]>();
 
     const handleTitleChange = (newTitle: string) => {
         setTitle(newTitle)
     }
 
-    const handleStartDate = (newStart: string) => {
+    const handleStartDate = (newStart: Date | null) => {
         setStartDate(newStart)
     }
 
-    const handleEndDate = (newEnd: string) => {
+    const handleEndDate = (newEnd: Date | null) => {
         setEndDate(newEnd)
     }
 
     const handleSave = () => {
-        // TODO: POST Api call to save the new/edited event
+        POST("/application/event", {
+            title: title,
+            startDate: startDate,
+            endDate: endDate,
+        })
+            // TODO: [TO BE DISCUSSED] might be empty response
+            .then(data => console.log(data))
+            .catch(e => console.log("Error " + e))
     }
+
+    const handleDeleteEvent = (event: Event) => {
+        POST("/application/delete-event", {
+            title: event.title,
+            start: event.start,
+            end: event.end
+        })
+            .then(data => console.log(data))
+            .catch(error => console.log(error));
+    }
+
+    const handleDeleteAllEvents = () => {
+        GET("/application/delete-all")
+            .then((data) => console.log(data))
+            .catch(e => console.log("Error: " + e))
+    }
+
+    useEffect(() => {
+        // TODO: Should be config api call;
+        setUserEvents(events);
+    },[])
 
     return (
         <div className={"event-control"}>
-            <input className={"event-input"}
-                   value={title}
-                   onChange={(titleChange) => handleTitleChange(titleChange.target.value)}
-                   type="text"
-                   placeholder="Title of Event"
-            />
+            <div className={"edit-control"}>
+                <input className={"event-input"}
+                       value={title}
+                       onChange={(titleChange) => handleTitleChange(titleChange.target.value)}
+                       type="text"
+                       placeholder="Title of Event"
+                />
 
-            <input className={"event-input"}
-                   value={startDate}
-                   onChange={(startDateChange) => handleStartDate(startDateChange.target.value)}
-                   type="text"
-                   placeholder="Start Date"
-            />
+                <input className={"event-input"}
+                       value={startDate?.getDate()}
+                       onChange={(startDateChange) => handleStartDate(startDateChange.target.valueAsDate)}
+                       type="text"
+                       placeholder="Start Date"
+                />
+                {/* Should be Datepickers for ease of use */}
+                <input className={"event-input"}
+                       value={endDate?.getDate()}
+                       onChange={(endDateChange) => handleEndDate(endDateChange.target.valueAsDate)}
+                       type="text"
+                       placeholder="End Date"
+                />
+                <br/>
 
-            <input className={"event-input"}
-                   value={endDate}
-                   onChange={(endDateChange) => handleEndDate(endDateChange.target.value)}
-                   type="text"
-                   placeholder="End Date"
-            />
-            <br/>
+                <button className={"event-btn"}
+                        onClick={handleSave}
+                >
+                    Save
+                </button>
+            </div>
 
-            <button className={"event-btn"}
-                    onClick={handleSave}
-            >
-                Save
-            </button>
+            <div className={"edit-delete-control"}>
+                {
+                    events.map(it => it.start ?
+                        <div className={"delete-control"}>
+                            <p>{it.title}</p>
+                            <p>{it.start.toDateString()}</p>
+                            <button onClick={() => handleDeleteEvent(it)}> Delete</button>
+                        </div>
+                        : null)
+                }
+                <button className={"event-btn"}> Delete all</button>
+            </div>
         </div>
     )
 }
