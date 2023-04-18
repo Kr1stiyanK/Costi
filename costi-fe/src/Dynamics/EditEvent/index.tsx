@@ -1,7 +1,7 @@
 import "./EditEvent.css";
 import React, {useEffect, useState} from "react";
 import {GET, POST} from "../../api";
-import {events} from "../config";
+import {clearEventList, events} from "../config";
 import {Event} from "react-big-calendar";
 
 const EditEvent = () => {
@@ -23,6 +23,12 @@ const EditEvent = () => {
     }
 
     const handleSave = () => {
+
+        if (title !== null && startDate !== null && endDate !== null) {
+            events.push({title: title, start: startDate as Date, end: endDate as Date})
+            setUserEvents(events);
+        }
+
         POST("/application/event", {
             title: title,
             startDate: startDate,
@@ -34,6 +40,8 @@ const EditEvent = () => {
     }
 
     const handleDeleteEvent = (event: Event) => {
+        events.splice(events.findIndex(it => it === event), 1);
+
         POST("/application/delete-event", {
             title: event.title,
             start: event.start,
@@ -44,16 +52,25 @@ const EditEvent = () => {
     }
 
     const handleDeleteAllEvents = () => {
+        setUserEvents([]);
+        clearEventList();
+
         GET("/application/delete-all")
             .then(data => data.json())
             .then(openResponse => setUserEvents(openResponse))
             .catch(e => console.log("Error: " + e))
     }
 
+    const handleEventClick = (editable: Event) => {
+        setTitle(editable.title as string);
+        setStartDate(editable.start as Date);
+        setEndDate(editable.end as Date);
+    }
+
     useEffect(() => {
         // TODO: Should be config api call;
         setUserEvents(events);
-    },[])
+    }, [])
 
     return (
         <div className={"event-control"}>
@@ -66,14 +83,14 @@ const EditEvent = () => {
                 />
 
                 <input className={"event-input"}
-                       value={startDate?.getDate()}
+                       value={startDate?.toDateString()}
                        onChange={(startDateChange) => handleStartDate(startDateChange.target.valueAsDate)}
                        type="text"
                        placeholder="Start Date"
                 />
                 {/* Should be Datepickers for ease of use */}
                 <input className={"event-input"}
-                       value={endDate?.getDate()}
+                       value={endDate?.toDateString()}
                        onChange={(endDateChange) => handleEndDate(endDateChange.target.valueAsDate)}
                        type="text"
                        placeholder="End Date"
@@ -81,25 +98,25 @@ const EditEvent = () => {
                 <br/>
 
                 <button className={"event-btn"}
-                        onClick={handleSave}
+                        onClick={() => handleSave()}
                 >
                     Save
                 </button>
             </div>
 
             {userEvents ? <div className={"edit-delete-control"}>
-                {
-                    userEvents.map(it => it.start ?
-                        <div className={"delete-control"}>
-                            <p>{it.title}</p>
-                            <p>{it.start.toDateString()}</p>
-                            <button onClick={() => handleDeleteEvent(it)}> Delete</button>
-                        </div>
-                        : null)
-                }
-                <button className={"event-btn"} onClick={handleDeleteAllEvents}> Delete all</button>
-            </div>
-            : null}
+                    {
+                        userEvents.map(it => it.start ?
+                            <div className={"delete-control"} onClick={() => handleEventClick(it)}>
+                                <p>{it.title}</p>
+                                <p>{it.start.toDateString()}</p>
+                                <button onClick={() => handleDeleteEvent(it)}> Delete</button>
+                            </div>
+                            : null)
+                    }
+                    <button className={"event-btn"} onClick={handleDeleteAllEvents}> Delete all</button>
+                </div>
+                : null}
         </div>
     )
 }

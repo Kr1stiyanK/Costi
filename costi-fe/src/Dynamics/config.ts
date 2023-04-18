@@ -17,10 +17,10 @@ export const localizer = dateFnsLocalizer({
 });
 
 // Will come from backend
-// export const eventsApiCall = GET("/user-events");
+// export const eventsApiCall = GET("/application/user-events");
 
 // TODO: Should be removed. Here for testing purposes
-export const events: Event[] = [
+export let events: Event[] = [
     {
         title: "Big Meeting",
         allDay: true,
@@ -44,4 +44,7 @@ export const events: Event[] = [
     },
 ];
 
+export const clearEventList = () => {
+    events = [];
+}
 // export const events: Event[] = []

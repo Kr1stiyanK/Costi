@@ -2,7 +2,9 @@
     display: flex;
     width: 100%;
     justify-content: space-evenly;
+    overflow: auto;
 }
+
 .event-input {
     margin-top: 10px;
     padding: 15px;
@@ -48,6 +50,7 @@
     backdrop-filter: blur(20px) saturate(150%);
     width: 30%;
     justify-content: space-between;
+    overflow: auto;
 }
 
 .edit-delete-control {
@@ -57,6 +60,8 @@
     padding: 10px;
     backdrop-filter: blur(20px) saturate(150%);
     width: 30%;
+    overflow: auto;
+    /*max-height: 50%;*/
 }
 
 .delete-control {
@@ -66,4 +71,8 @@
     margin-top: 10px;
     padding: 15px;
     background-color: aliceblue;
+}
+
+.delete-control:hover {
+    background-color: #d4dae1;
 }
