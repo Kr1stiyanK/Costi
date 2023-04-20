@@ -3,7 +3,7 @@ package com.pts.costi_backend.model.dtos;
 import com.pts.costi_backend.model.validations.PasswordsMatch;
 import com.pts.costi_backend.model.validations.UniqueEmailAddress;
 import com.pts.costi_backend.model.validations.UniqueUserName;
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 
 @PasswordsMatch(
         firstMatch = "password",

@@ -1,7 +1,7 @@
 package com.pts.costi_backend.model.validations;
 
 
-import javax.validation.*;
+import jakarta.validation.*;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

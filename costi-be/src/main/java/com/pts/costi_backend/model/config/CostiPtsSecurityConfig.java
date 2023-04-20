@@ -22,17 +22,18 @@ public class CostiPtsSecurityConfig {
     @Bean
     public SecurityFilterChain config(HttpSecurity http) throws Exception {
         //TODO: implement security urls and paths
-        http.authorizeHttpRequests()
-                .antMatchers("./.", "/users/login", "/users/register").permitAll()
+        return http.csrf().disable()
+                .authorizeHttpRequests()
+                .requestMatchers("./.", "/users/login", "/users/register").permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/users/login")
                 .usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
                 .passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY)
                 .defaultSuccessUrl("/")
-                .and()
-                .csrf().disable();
-        return http.build();
+                .and().build();
+//              .defaultSuccessUrl("/",true)
+
     }
 
     @Bean
