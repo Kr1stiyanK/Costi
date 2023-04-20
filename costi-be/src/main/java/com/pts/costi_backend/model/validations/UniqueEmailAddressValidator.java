@@ -3,8 +3,8 @@ package com.pts.costi_backend.model.validations;
 
 import com.pts.costi_backend.model.repositories.UserEntityRepository;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 public class UniqueEmailAddressValidator implements ConstraintValidator<UniqueEmailAddress,String> {
 

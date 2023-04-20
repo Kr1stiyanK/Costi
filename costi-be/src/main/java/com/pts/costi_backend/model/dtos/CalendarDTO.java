@@ -1,6 +1,6 @@
 package com.pts.costi_backend.model.dtos;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 
 
