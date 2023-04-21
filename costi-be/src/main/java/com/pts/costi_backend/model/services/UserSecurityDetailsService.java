@@ -6,8 +6,12 @@ import com.pts.costi_backend.model.repositories.UserEntityRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 
+@Service
 public class UserSecurityDetailsService implements UserDetailsService {
 
     private final UserEntityRepository userEntityRepository;
@@ -18,17 +22,21 @@ public class UserSecurityDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return this.userEntityRepository.findUserEntityByUsername(username)
-                .map(this::mapToSecurityObject).orElseThrow(() -> new UsernameNotFoundException(username + " not found!"));
+        Optional<UserEntity> userEntity = this.userEntityRepository.findUserEntityByUsername(username);
+        return userEntity.map(CostiPtsUserDetails::new)
+                .orElseThrow(() -> new UsernameNotFoundException("user with " + username + " not found!"));
+
+//        return this.userEntityRepository.findUserEntityByUsername(username)
+//                .map(this::mapToSecurityObject).orElseThrow(() -> new UsernameNotFoundException(username + " not found!"));
     }
 
 
-    private UserDetails mapToSecurityObject(UserEntity user){
-        return new CostiPtsUserDetails(
-                user.getUsername(),
-                user.getPassword()
-        );
-    }
+//    private UserDetails mapToSecurityObject(UserEntity user) {
+//        return new CostiPtsUserDetails(
+//                user.getUsername(),
+//                user.getPassword()
+//        );
+//    }
 
 
 //  neshta za authorizaciq, no na nas nqma da ni trqbvat, mislq ....

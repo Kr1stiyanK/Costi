@@ -18,10 +18,14 @@ public class UserEntity {
     @Column(nullable = false)
     private String password;
 
-    public UserEntity(String email, String username, String password) {
+    @Column(nullable = false)
+    private String roles;
+
+    public UserEntity(String email, String username, String password, String roles) {
         this.email = email;
         this.username = username;
         this.password = password;
+        this.roles = roles;
     }
 
     public UserEntity() {
@@ -63,15 +67,13 @@ public class UserEntity {
         return this;
     }
 
+    public String getRoles() {
+        return roles;
+    }
 
-    @Override
-    public String toString() {
-        return "UserEntity{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+    public UserEntity setRoles(String roles) {
+        this.roles = roles;
+        return this;
     }
 }
 

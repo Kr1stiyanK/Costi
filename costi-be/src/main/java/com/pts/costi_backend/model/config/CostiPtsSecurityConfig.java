@@ -4,15 +4,23 @@ import com.pts.costi_backend.model.repositories.UserEntityRepository;
 import com.pts.costi_backend.model.services.UserSecurityDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 
 @Configuration
 public class CostiPtsSecurityConfig {
+    private UserEntityRepository userEntityRepository;
+
+    public CostiPtsSecurityConfig(UserEntityRepository userEntityRepository) {
+        this.userEntityRepository = userEntityRepository;
+    }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -21,25 +29,44 @@ public class CostiPtsSecurityConfig {
 
     @Bean
     public SecurityFilterChain config(HttpSecurity http) throws Exception {
-        //TODO: implement security urls and paths
-        return http.csrf().disable()
+
+        return http.httpBasic().and().csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("./.", "/users/login", "/users/register").permitAll()
+                .requestMatchers("/users/login", "/users/register").permitAll()
                 .and()
-                .formLogin()
-                .loginPage("/users/login")
-                .usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
-                .passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY)
-                .defaultSuccessUrl("/")
-                .and().build();
-//              .defaultSuccessUrl("/",true)
+                .formLogin(Customizer.withDefaults())
+                .logout()
+                .logoutUrl("/users/logout")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .and()
+                .build();
 
     }
 
     @Bean
-    public UserDetailsService userDetailsService(UserEntityRepository userEntityRepository) {
+    public UserDetailsService userDetailsService() {
         return new UserSecurityDetailsService(userEntityRepository);
     }
 
+    //TODO: UserEntityMapper
+    //Jira Source Issue: PC-8 https://ptscosti.atlassian.net/browse/PC-8
+//    @Bean
+//    public UserEntityMapper userEntityMapper() {
+//        return new UserEntityMapper() {
+//            @Override
+//            public UserEntity userRegistrationDtoToUserEntity(UserRegistrationDTO userRegistrationDTO) {
+//                return null;
+//            }
+//        };
+//    }
 
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        authenticationProvider.setUserDetailsService(userDetailsService());
+        authenticationProvider.setPasswordEncoder(passwordEncoder());
+        return authenticationProvider;
+    }
 }
