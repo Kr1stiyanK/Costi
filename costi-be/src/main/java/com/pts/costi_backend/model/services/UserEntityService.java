@@ -22,24 +22,15 @@ public class UserEntityService {
     }
 
     public Boolean register(UserRegistrationDTO userRegistrationDTO) {
-        // Additional null check. Prevents null client from being registered
-        if(!Objects.equals(userRegistrationDTO.getUsername(), "")){
             if (this.userEntityRepository.findUserEntityByUsername(userRegistrationDTO.getUsername()).isEmpty()) {
                 UserEntity newUser = new UserEntity(
                         userRegistrationDTO.getEmail(),
                         userRegistrationDTO.getUsername(),
-                        userRegistrationDTO.getPassword()
-//                    passwordEncoder.encode(userRegistrationDTO.getPassword())
-                );
+                        passwordEncoder.encode(userRegistrationDTO.getPassword()),
+                        "ROLE_USER");
                 this.userEntityRepository.save(newUser);
                 return true;
             }
-        }
-        return false;
-    }
-
-    public Boolean login(UserLoginDTO userLoginDTO){
-        //TODO:login logic etc..
         return false;
     }
 }

@@ -22,12 +22,14 @@ public class UserRegistrationDTO {
     private String username;
 
     @NotNull
-    @Size(min = 6, max = 25)
+    @Size(min = 5, max = 25)
     private String password;
 
     @NotNull
-    @Size(min = 6, max = 25)
+    @Size(min = 5, max = 25)
     private String confirmPassword;
+
+    private String roles;
 
     public UserRegistrationDTO() {
     }

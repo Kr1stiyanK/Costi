@@ -1,21 +1,28 @@
 package com.pts.costi_backend.model;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
-public class CostiPtsUserDetails implements UserDetails{
+public class CostiPtsUserDetails implements UserDetails {
 
     private String username;
     private String password;
-    private Collection<GrantedAuthority> authorities;
+    private List<GrantedAuthority> authorities;
 
-    public CostiPtsUserDetails(String username, String password) {
-        this.username = username;
-        this.password = password;
-        this.authorities = new ArrayList<>();
+    public CostiPtsUserDetails(UserEntity userEntity) {
+        this.username = userEntity.getUsername();
+        this.password = userEntity.getPassword();
+        this.authorities = Arrays.stream(userEntity.getRoles().split(","))
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
     }
 
     @Override
