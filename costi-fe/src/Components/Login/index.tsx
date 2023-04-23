@@ -25,9 +25,10 @@ const Login = (props: Props) => {
             password: password
         }).then(data => {
             //Need to confirm correct response for successful identification
-            console.log(data)
-            props.transition(true)
-            setTimeout(props.goNext, 500)
+            if (data) {
+                props.transition(true)
+                setTimeout(props.goNext, 500)
+            }
         }).catch(error => {
                 //Display errors
                 console.error('Error:', error)

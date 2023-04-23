@@ -16,5 +16,5 @@ export const GET = (endpoint: string) => {
         headers: {
             "Content-type": "application/json; charset=UTF-8"
         }
-    })
+    }).then(response => response.json())
 }

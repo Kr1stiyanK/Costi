@@ -3,6 +3,8 @@ import format from "date-fns/format";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import getDay from "date-fns/getDay";
+import {GET} from "../api";
+import {useEffect, useState} from "react";
 
 export const locales = {
     "BG": require("date-fns/esm/locale/bg"),
@@ -17,7 +19,14 @@ export const localizer = dateFnsLocalizer({
 });
 
 // Will come from backend
-// export const eventsApiCall = GET("/application/user-events");
+// export const eventsApiCall = () => GET("/application/user-events").then((data) => setEvents(data));
+//
+// export const [events, setEvents] = useState<Event[]>();
+//
+// useEffect(() => {
+//     eventsApiCall()
+// }, [])
+
 
 // TODO: Should be removed. Here for testing purposes
 export let events: Event[] = [
@@ -45,6 +54,7 @@ export let events: Event[] = [
 ];
 
 export const clearEventList = () => {
-    events = [];
+    GET("/application/delete-user-events").then(
+        () => events = []
+    );
 }
-// export const events: Event[] = []
