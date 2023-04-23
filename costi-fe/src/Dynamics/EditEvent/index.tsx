@@ -28,6 +28,7 @@ const EditEvent = () => {
             events.push({title: title, start: startDate as Date, end: endDate as Date})
             setUserEvents(events);
         }
+        setUserEvents(events);
 
         POST("/application/event", {
             title: title,
@@ -40,7 +41,9 @@ const EditEvent = () => {
     }
 
     const handleDeleteEvent = (event: Event) => {
+        // TODO: Must be changed with state of config
         events.splice(events.findIndex(it => it === event), 1);
+        setUserEvents(events);
 
         POST("/application/delete-event", {
             title: event.title,
@@ -98,7 +101,7 @@ const EditEvent = () => {
                 <br/>
 
                 <button className={"event-btn"}
-                        onClick={() => handleSave()}
+                        onClick={handleSave}
                 >
                     Save
                 </button>

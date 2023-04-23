@@ -17,7 +17,7 @@ const SigningPage = (props: Props) => {
                 <div className={transitionNext ? "back-image transitionHome" : "back-image"}>
                     {transitionNext ? null :
                         <div className={"flex"}>
-                            {loginToReg ? <Registration goNext={props.goNext} transition={setTransitionNext}/> :
+                            {loginToReg ? <Registration goNext={() => console.log("jpjo)")} transition={setLoginToReg}/> :
                                 <Login goNext={props.goNext} transition={setTransitionNext}/>}
                             <div className={"registration-element"} onClick={() => setLoginToReg(!loginToReg)}>
                                 <h2>{loginToReg ? "LOGIN" : "SIGNUP"}</h2></div>
