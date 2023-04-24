@@ -3,8 +3,7 @@ import {POST} from "../../api";
 import "./Registration.css";
 
 type Props = {
-    transition: React.Dispatch<React.SetStateAction<boolean>>;
-    goNext: () => void;
+    transition: (state: boolean) => void;
 }
 
 const Registration = (props: Props) => {
@@ -43,8 +42,7 @@ const Registration = (props: Props) => {
             confirmPassword: confirmPassword
         }).then(data => {
             if (data) {
-                props.transition(true)
-                setTimeout(props.goNext, 500)
+                props.transition(false)
             }
         }).catch(error => {
                 //Display errors

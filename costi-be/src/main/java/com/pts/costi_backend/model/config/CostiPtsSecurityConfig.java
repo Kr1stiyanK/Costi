@@ -16,23 +16,26 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class CostiPtsSecurityConfig {
     private UserEntityRepository userEntityRepository;
-
+    
     public CostiPtsSecurityConfig(UserEntityRepository userEntityRepository) {
         this.userEntityRepository = userEntityRepository;
     }
-
-
+    
+    
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new Pbkdf2PasswordEncoder();
     }
-
+    
     @Bean
     public SecurityFilterChain config(HttpSecurity http) throws Exception {
-
+        
         return http.httpBasic().and().csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/users/login", "/users/register").permitAll()
+                .requestMatchers("/application/event").hasAuthority("ROLE_ANONYMOUS")
+                .requestMatchers("/application/delete-event").hasAuthority("ROLE_ANONYMOUS")
+                .requestMatchers("/application/delete-all").hasAuthority("ROLE_ANONYMOUS")
                 .and()
                 .formLogin(Customizer.withDefaults())
                 .logout()
@@ -41,14 +44,14 @@ public class CostiPtsSecurityConfig {
                 .deleteCookies("JSESSIONID")
                 .and()
                 .build();
-
+        
     }
-
+    
     @Bean
     public UserDetailsService userDetailsService() {
         return new UserSecurityDetailsService(userEntityRepository);
     }
-
+    
     //TODO: UserEntityMapper
     //Jira Source Issue: PC-8 https://ptscosti.atlassian.net/browse/PC-8
 //    @Bean
@@ -60,8 +63,8 @@ public class CostiPtsSecurityConfig {
 //            }
 //        };
 //    }
-
-
+    
+    
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();

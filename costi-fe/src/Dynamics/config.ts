@@ -54,7 +54,7 @@ export let events: Event[] = [
 ];
 
 export const clearEventList = () => {
-    GET("/application/delete-user-events").then(
+    GET("/application/delete-all").then(
         () => events = []
     );
 }
