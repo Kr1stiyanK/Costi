@@ -9,5 +9,8 @@ import java.util.List;
 
 @Repository
 public interface CalendarRepository extends JpaRepository<CalendarObjEntity, Long> {
-//    List<CalendarObjEntity> findByStartTimeBetween(LocalDateTime start, LocalDateTime end);
+    //    List<CalendarObjEntity> findByStartTimeBetween(LocalDateTime start, LocalDateTime end);
+    CalendarObjEntity findByTitle(String title);
+
+    void deleteAll();
 }
