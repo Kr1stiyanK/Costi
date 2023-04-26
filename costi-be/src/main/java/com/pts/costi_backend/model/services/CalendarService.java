@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.management.Query;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import jakarta.websocket.Session;
+
 import java.util.Calendar;
 
 @Service
@@ -32,12 +34,16 @@ public class CalendarService {
     }
 
     public void createEvent(CalendarDTO calendarDTO) {
-        CalendarObjEntity calendarObj = new CalendarObjEntity(
-                calendarDTO.getTitle(),
-                calendarDTO.getStartDate(),
-                calendarDTO.getEndDate());
-        if (!isRecordExists(calendarObj)) {
-            calendarRepository.save(calendarObj);
-        }
+        CalendarObjEntity calendarObj = new CalendarObjEntity();
+        calendarObj.setTitle(calendarDTO.getTitle());
+        calendarObj.setStart(calendarDTO.getStartDate());
+        calendarObj.setEnd(calendarDTO.getEndDate());
+
+        calendarRepository.save(calendarObj);
+    }
+
+    public void deleteAllEvents() {
+        calendarRepository.deleteAll();
     }
 }
+
