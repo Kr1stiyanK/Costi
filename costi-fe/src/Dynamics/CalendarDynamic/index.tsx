@@ -33,17 +33,18 @@ const CalendarDynamic = () => {
         setCurrentEvents(a);
     };
 
+    const loadMapEvents = () => eventsApiCall().then((data: Event[]) => setCurrentEvents(data.map(it => {
+        return {title: it.title, start: new Date(it.start!.toString()), end: new Date(it.start!.toString())}
+    })));
+
     useEffect(() => {
-        eventsApiCall().then((data: Event[]) => setCurrentEvents(data.map(it => {
-            return {title: it.title, start: new Date(it.start!.toString()), end: new Date(it.end!.toString())}
-        })));
+        loadMapEvents();
     }, []);
 
     return (
         <div className={"calendar-container"}>
             <Calendar
                 localizer={localizer}
-                onSelectEvent={(slotInfo: Event) => console.log(slotInfo)}
                 events={currentEvents}
                 onSelectSlot={(slotInfo) => handleSelectSlot(slotInfo)}
                 selectable={true}
