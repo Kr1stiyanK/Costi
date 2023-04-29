@@ -6,16 +6,12 @@ import com.pts.costi_backend.model.repositories.CalendarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.management.Query;
-
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
-import jakarta.websocket.Session;
-
-import java.util.Calendar;
+import java.util.List;
 
 @Service
 public class CalendarService {
@@ -24,6 +20,10 @@ public class CalendarService {
 
     @PersistenceContext
     private EntityManager entityManager;
+
+    public List<CalendarObjEntity> getAllEvents(){
+        return calendarRepository.findAll();
+    }
 
     public boolean isRecordExists(CalendarObjEntity entity) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
