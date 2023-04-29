@@ -18,11 +18,3 @@ export const localizer = dateFnsLocalizer({
 });
 
 export const eventsApiCall = () => GET("/application/get-events");
-
-export const clearEventList = () => {
-  GET("/application/delete-all")
-    .then()
-    .catch((e) => {
-      console.log("Error: " + e);
-    });
-};

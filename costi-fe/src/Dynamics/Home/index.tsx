@@ -17,12 +17,20 @@ const Home = () => {
         {events.length > 0 ? (
           <>
             <h2>Your upcoming events: </h2>{" "}
-            {events.map((it) => it.title + ", ")}
+            {events.map((it, index) => {
+                debugger;
+                if (index + 1 < events.length) {
+                    return it.title + ", "
+                } else {
+                    return it.title
+                }
+
+            })}
           </>
         ) : (
           <>
             <h2>You have no upcoming events.</h2> <br />{" "}
-            <h3>You can make some in the "add event" tab in the sidebar!</h3>
+            <h3>You can make some in the "Calendar" tab in the sidebar!</h3>
           </>
         )}
       </div>

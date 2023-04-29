@@ -1,7 +1,7 @@
 import "./EditEvent.css";
 import React, {useEffect, useState} from "react";
 import {GET, POST} from "../../api";
-import {clearEventList, eventsApiCall} from "../config";
+import {eventsApiCall} from "../config";
 import {Event} from "react-big-calendar";
 
 const EditEvent = () => {
@@ -23,46 +23,37 @@ const EditEvent = () => {
     };
 
     const handleSave = () => {
-        if (title !== null && startDate !== null && endDate !== null) {
-            userEvents.push({
-                title: title,
-                start: startDate as Date,
-                end: endDate as Date,
-            });
-            setUserEvents(userEvents);
-        }
-        setUserEvents(userEvents);
-
         POST("/application/event", {
             title: title,
             startDate: startDate,
             endDate: endDate,
         })
             // TODO: [TO BE DISCUSSED] might be empty response
-            .then((data) => console.log(data))
-            .catch((e) => console.log("Error " + e));
+            .then(() => {
+                loadMapEvents()
+            })
+            .catch((e) => {
+                loadMapEvents()
+                console.log("Error " + e)
+            });
     };
 
     const handleDeleteEvent = (event: Event) => {
-        // TODO: Must be changed with state of config
-        userEvents.splice(
-            userEvents.findIndex((it: Event) => it === event),
-            1
-        );
-        setUserEvents(userEvents);
 
         POST("/application/delete-event", {
             title: event.title,
             start: event.start,
             end: event.end,
         })
-            .then((data) => console.log(data))
-            .catch((error) => console.log(error));
+            .then(() => loadMapEvents())
+            .catch((error) => {
+                loadMapEvents()
+                console.log(error)
+            });
     };
 
     const handleDeleteAllEvents = () => {
         setUserEvents([]);
-        clearEventList();
 
         GET("/application/delete-all")
             .then((data) => data.json())
@@ -76,10 +67,12 @@ const EditEvent = () => {
         setEndDate(editable.end as Date);
     };
 
+    const loadMapEvents = () => eventsApiCall().then((data: Event[]) => setUserEvents(data.map(it => {
+        return {title: it.title, start: new Date(it.start!.toString()), end: new Date(it.start!.toString())}
+    })));
+
     useEffect(() => {
-        eventsApiCall().then((data: Event[]) => setUserEvents(data.map(it => {
-            return {title: it.title, start: new Date(it.start!.toString()), end: new Date(it.start!.toString())}
-        })));
+        loadMapEvents();
     }, []);
 
     return (
@@ -121,7 +114,7 @@ const EditEvent = () => {
                 </button>
             </div>
 
-            {userEvents ? (
+            {userEvents.length > 0 ? (
                 <div className={"edit-delete-control"}>
                     {userEvents.map((it) =>
                         it.start ? (
@@ -135,6 +128,7 @@ const EditEvent = () => {
                             </div>
                         ) : null
                     )}
+
                     <button className={"event-btn"} onClick={handleDeleteAllEvents}>
                         {" "}
                         Delete all

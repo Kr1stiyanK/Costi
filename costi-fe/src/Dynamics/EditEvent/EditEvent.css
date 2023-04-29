@@ -3,6 +3,8 @@
   width: 100%;
   justify-content: space-evenly;
   overflow: auto;
+
+  max-height: 50%;
 }
 
 .event-input {
@@ -36,6 +38,9 @@
   margin-top: 10px;
   color: white;
   font-size: larger;
+
+  position: sticky;
+  bottom: 0;
 }
 
 .event-btn:active {
