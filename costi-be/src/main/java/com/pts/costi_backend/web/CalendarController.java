@@ -4,12 +4,12 @@ import com.pts.costi_backend.model.CalendarObjEntity;
 import com.pts.costi_backend.model.dtos.CalendarDTO;
 import com.pts.costi_backend.model.repositories.CalendarRepository;
 import com.pts.costi_backend.model.services.CalendarService;
-import jakarta.validation.constraints.Null;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -26,7 +26,12 @@ public class CalendarController {
     @PostMapping("/event")
     public ResponseEntity<Void> createEvent(@RequestBody CalendarDTO calendarDTO) {
         calendarService.createEvent(calendarDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/get-events")
+    public ResponseEntity<List<CalendarObjEntity>> getEvents() {
+        return ResponseEntity.ok(this.calendarService.getAllEvents());
     }
 
     @PostMapping("/delete-event")
@@ -42,7 +47,7 @@ public class CalendarController {
 
     @PostMapping("/delete-all")
     public ResponseEntity<Void> deleteAllEvents() {
-        calendarRepository.deleteAll();
+        calendarService.deleteAllEvents();
         return null;
     }
 

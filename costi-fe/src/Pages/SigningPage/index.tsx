@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import "./SigningPage.css";
 import Login from "../../Components/Login";
 import Registration from "../../Components/Registration";

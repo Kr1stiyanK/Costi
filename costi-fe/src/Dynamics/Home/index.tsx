@@ -1,8 +1,16 @@
 import "./Home.css";
-import { events } from "../config";
+import {eventsApiCall} from "../config";
+import {useEffect, useState} from "react";
+import {Event} from "react-big-calendar";
 
 const Home = () => {
-  return (
+    const [events, setEvents] = useState<Event[]>([]);
+
+    useEffect(() => {
+        eventsApiCall().then((data: Event[]) => setEvents(data));
+    }, []);
+
+    return (
     <>
       <div className={"upcoming-events"}>
         <h1>Hello!</h1>
