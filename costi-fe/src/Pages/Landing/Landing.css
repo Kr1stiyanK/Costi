@@ -1,14 +1,14 @@
-h1::before {
+.h1-anim::before {
   transform: scaleX(0);
   transform-origin: bottom right;
 }
 
-h1:hover::before {
+.h1-anim:hover::before {
   transform: scaleX(1);
   transform-origin: bottom left;
 }
 
-h1::before {
+.h1-anim::before {
   content: " ";
   display: block;
   position: absolute;
@@ -31,6 +31,17 @@ h1 {
   display: flex;
   height: 100vh;
   overflow: hidden;
+  animation-name: fromError;
+  animation-duration: 0.5s;
+}
+
+@keyframes fromError {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .sign-in-up {

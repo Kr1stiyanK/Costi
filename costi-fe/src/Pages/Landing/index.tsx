@@ -18,7 +18,7 @@ const Landing = (props: Props) => {
       <div className={"homepage"}>
         {transitionNext ? null : (
           <div className={"sign-in-up"}>
-            <h1 onClick={handleNext}>Sign in | Sign up</h1>
+            <h1 className={"h1-anim"} onClick={handleNext}>Sign in | Sign up</h1>
           </div>
         )}
         <div

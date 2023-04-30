@@ -2,13 +2,14 @@ import "./DynamicHomepage.css";
 import React, { useState } from "react";
 import { Dynamic, HOME } from "../../Dynamics/DynamicTypes";
 import Home from "../../Dynamics/Home";
-import GenericError from "../GenericError";
 import Sidebar from "../../Components/Sidebar";
 import CalendarDynamic from "../../Dynamics/CalendarDynamic";
 import EditEvent from "../../Dynamics/EditEvent";
+import { Page } from "../../types";
+import * as t from "../../types";
 
 type Props = {
-  goNext: () => void;
+  goNext: (dynamic: Page) => void;
 };
 
 const DynamicHomepage = (props: Props) => {
@@ -23,10 +24,12 @@ const DynamicHomepage = (props: Props) => {
       case "EDIT_EVENT":
         return <EditEvent />;
       case "LOGOUT":
-        props.goNext();
+        props.goNext(t.SIGNING_PAGE);
         return;
+      case "ERROR":
       default:
-        return <GenericError />;
+        props.goNext(t.GENERIC_ERROR);
+        return;
     }
   })();
 

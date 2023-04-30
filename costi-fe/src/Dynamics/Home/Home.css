@@ -1,3 +1,5 @@
 .upcoming-events {
   color: white;
+  animation: fromError;
+  animation-duration: 0.7s;
 }
