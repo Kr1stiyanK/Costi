@@ -9,6 +9,7 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    //Test
 
     @Column(nullable = false, unique = true)
     private String email;
