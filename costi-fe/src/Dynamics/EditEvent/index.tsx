@@ -51,10 +51,7 @@ const EditEvent = () => {
   };
 
   const handleDeleteAllEvents = () => {
-    GET("/application/delete-all")
-      .then((data) => data.json())
-      .then((openResponse) => setUserEvents(openResponse))
-      .catch((e) => console.log("Error: " + e));
+    userEvents.forEach(it => handleDeleteEvent(it));
   };
 
   const handleEventClick = (editable: Event) => {
