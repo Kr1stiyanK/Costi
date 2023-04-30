@@ -9,7 +9,8 @@ type Props = {
 
 const Login = (props: Props) => {
   const [username, setUsername] = useState<string>(""),
-    [password, setPassword] = useState<string>("");
+    [password, setPassword] = useState<string>(""),
+    [userError, setUserError] = useState<boolean>(false);
 
   const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -26,8 +27,11 @@ const Login = (props: Props) => {
     })
       .then((data) => {
         if (data) {
+          setUserError(false);
           props.transition(true);
           setTimeout(props.goNext, 500);
+        } else {
+          setUserError(true);
         }
       })
       .catch((error) => {
@@ -57,6 +61,7 @@ const Login = (props: Props) => {
         name="password"
         placeholder="Password"
       />
+      {userError ? <p>User not found!</p> : null}
       <button className={"btn"} onClick={handleContinue}>
         Continue
       </button>

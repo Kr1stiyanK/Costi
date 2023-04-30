@@ -37,6 +37,7 @@ public class CostiPtsSecurityConfig {
                 .requestMatchers("/application/delete-event").hasAuthority("ROLE_ANONYMOUS")
                 .requestMatchers("/application/delete-all").hasAuthority("ROLE_ANONYMOUS")
                 .requestMatchers("/application/get-events").hasAuthority("ROLE_ANONYMOUS")
+                .requestMatchers("/users/logout").hasAuthority("ROLE_ANONYMOUS")
                 .and()
                 .formLogin(Customizer.withDefaults())
                 .logout()
@@ -52,19 +53,6 @@ public class CostiPtsSecurityConfig {
     public UserDetailsService userDetailsService() {
         return new UserSecurityDetailsService(userEntityRepository);
     }
-    
-    //TODO: UserEntityMapper
-    //Jira Source Issue: PC-8 https://ptscosti.atlassian.net/browse/PC-8
-//    @Bean
-//    public UserEntityMapper userEntityMapper() {
-//        return new UserEntityMapper() {
-//            @Override
-//            public UserEntity userRegistrationDtoToUserEntity(UserRegistrationDTO userRegistrationDTO) {
-//                return null;
-//            }
-//        };
-//    }
-    
     
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {

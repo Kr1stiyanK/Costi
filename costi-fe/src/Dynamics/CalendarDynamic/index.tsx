@@ -1,57 +1,73 @@
 import "./CalendarDynamic.css";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import {eventsApiCall, localizer} from "../config";
-import {Calendar, Event} from "react-big-calendar";
-import {POST} from "../../api";
+import { eventsApiCall, localizer } from "../config";
+import { Calendar, Event } from "react-big-calendar";
+import { POST } from "../../api";
 
 const CalendarDynamic = () => {
-    const [currentEvents, setCurrentEvents] = useState<Event[]>([]);
+  const [currentEvents, setCurrentEvents] = useState<Event[]>([]);
 
-    const handleSelectSlot = (newDates: Event) => {
-        newDates.title = prompt("Appointment Name");
+  const handleSelectSlot = (newDates: Event) => {
+    newDates.title = prompt("Appointment Name");
+    if (newDates.title === "") return
 
-        POST("/application/event", {
-            title: newDates.title,
-            startDate: newDates.start,
-            endDate: newDates.end,
+    POST("/application/event", {
+      title: newDates.title,
+      startDate: newDates.start,
+      endDate: newDates.end,
+    })
+      .then(() => setCurrentEvents([...currentEvents, newDates]))
+      // TODO: Backend returns error;
+      .catch(() => setCurrentEvents([...currentEvents, newDates]));
+  };
+
+  const handleDoubleClick = (editable: Event) => {
+    const tempTitle = prompt("Appointment Name");
+    POST("/application/edit-event", [
+      {
+        title: editable.title,
+        start: editable.start,
+        end: editable.end,
+      },
+      {
+        title: tempTitle,
+        start: editable.start,
+        end: editable.end,
+      },
+    ])
+      .then(() => loadMapEvents())
+      .catch(() => loadMapEvents());
+  };
+
+  const loadMapEvents = () =>
+    eventsApiCall().then((data: Event[]) =>
+      setCurrentEvents(
+        data.map((it) => {
+          return {
+            title: it.title,
+            start: new Date(it.start!.toString()),
+            end: new Date(it.start!.toString()),
+          };
         })
-            .then(() => setCurrentEvents([...currentEvents, newDates]))
-            // TODO: Backend returns error;
-            .catch(() => setCurrentEvents([...currentEvents, newDates]));
-    };
-
-    const handleDoubleClick = (editable: Event) => {
-        //TODO: redo logic
-        // Needs to be clocked to detect new differences
-        const a = currentEvents;
-        const h = currentEvents.find((it) => it === editable);
-        editable.title = prompt("Appointment Name");
-        const f = h;
-        f!.title = editable.title;
-        a.map((it) => (it === h ? f : it));
-        setCurrentEvents(a);
-    };
-
-    const loadMapEvents = () => eventsApiCall().then((data: Event[]) => setCurrentEvents(data.map(it => {
-        return {title: it.title, start: new Date(it.start!.toString()), end: new Date(it.start!.toString())}
-    })));
-
-    useEffect(() => {
-        loadMapEvents();
-    }, []);
-
-    return (
-        <div className={"calendar-container"}>
-            <Calendar
-                localizer={localizer}
-                events={currentEvents}
-                onSelectSlot={(slotInfo) => handleSelectSlot(slotInfo)}
-                selectable={true}
-                onDoubleClickEvent={(eventEdit: Event) => handleDoubleClick(eventEdit)}
-            />
-        </div>
+      )
     );
+
+  useEffect(() => {
+    loadMapEvents();
+  }, []);
+
+  return (
+    <div className={"calendar-container"}>
+      <Calendar
+        localizer={localizer}
+        events={currentEvents}
+        onSelectSlot={(slotInfo) => handleSelectSlot(slotInfo)}
+        selectable={true}
+        onDoubleClickEvent={(eventEdit: Event) => handleDoubleClick(eventEdit)}
+      />
+    </div>
+  );
 };
 
 export default CalendarDynamic;
