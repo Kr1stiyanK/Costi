@@ -33,6 +33,12 @@ const Sidebar = (props: Props) => {
         >
           EDIT EVENTS
         </button>
+        <button
+          className={"logout-btn"}
+          onClick={() => props.goNext(t.ERROR)}
+        >
+          FORCE ERROR
+        </button>
       </div>
 
       <button onClick={logout} className={"logout-btn"}>

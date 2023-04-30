@@ -5,6 +5,8 @@
   overflow: auto;
 
   max-height: 50%;
+  animation: fromError;
+  animation-duration: 0.5s;
 }
 
 .event-input {

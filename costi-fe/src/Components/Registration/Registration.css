@@ -16,6 +16,9 @@
   display: flex;
   flex-direction: column;
   width: 25%;
+
+  animation: fromError;
+  animation-duration: 0.5s;
 }
 
 .input {
