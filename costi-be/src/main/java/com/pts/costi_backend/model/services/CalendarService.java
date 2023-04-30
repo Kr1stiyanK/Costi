@@ -38,8 +38,9 @@ public class CalendarService {
         calendarObj.setTitle(calendarDTO.getTitle());
         calendarObj.setStart(calendarDTO.getStartDate());
         calendarObj.setEnd(calendarDTO.getEndDate());
-
-        calendarRepository.save(calendarObj);
+        if(!isRecordExists(calendarObj)) {
+            calendarRepository.save(calendarObj);
+        }
     }
 
     public void deleteAllEvents() {
