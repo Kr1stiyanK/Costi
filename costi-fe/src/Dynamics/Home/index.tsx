@@ -1,16 +1,16 @@
 import "./Home.css";
-import {eventsApiCall} from "../config";
-import {useEffect, useState} from "react";
-import {Event} from "react-big-calendar";
+import { eventsApiCall } from "../config";
+import { useEffect, useState } from "react";
+import { Event } from "react-big-calendar";
 
 const Home = () => {
-    const [events, setEvents] = useState<Event[]>([]);
+  const [events, setEvents] = useState<Event[]>([]);
 
-    useEffect(() => {
-        eventsApiCall().then((data: Event[]) => setEvents(data));
-    }, []);
+  useEffect(() => {
+    eventsApiCall().then((data: Event[]) => setEvents(data));
+  }, []);
 
-    return (
+  return (
     <>
       <div className={"upcoming-events"}>
         <h1>Hello!</h1>
@@ -18,13 +18,11 @@ const Home = () => {
           <>
             <h2>Your upcoming events: </h2>{" "}
             {events.map((it, index) => {
-                debugger;
-                if (index + 1 < events.length) {
-                    return it.title + ", "
-                } else {
-                    return it.title
-                }
-
+              if (index + 1 < events.length) {
+                return it.title + ", ";
+              } else {
+                return it.title;
+              }
             })}
           </>
         ) : (

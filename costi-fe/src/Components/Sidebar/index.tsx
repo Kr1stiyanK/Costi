@@ -9,7 +9,9 @@ type Props = {
 
 const Sidebar = (props: Props) => {
   const logout = () => {
-    GET("/users/logout").then(() => props.goNext(t.LOGOUT));
+    GET("/users/logout")
+      .then(() => props.goNext(t.LOGOUT))
+      .catch(() => props.goNext(t.LOGOUT));
   };
 
   return (
