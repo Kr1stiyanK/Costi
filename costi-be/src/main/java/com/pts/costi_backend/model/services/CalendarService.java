@@ -43,8 +43,18 @@ public class CalendarService {
         }
     }
 
-    public void deleteAllEvents() {
-        calendarRepository.deleteAll();
+//    public void deleteAllEvents() {
+//        calendarRepository.deleteAll();
+//    }
+
+    public void replaceCalendarEvent(CalendarDTO calendarDTOold, CalendarDTO calendarDTOnew) {
+        CalendarObjEntity existingCalendar = calendarRepository.findByTitle(calendarDTOold.getTitle());
+
+        existingCalendar.setTitle(calendarDTOnew.getTitle());
+        existingCalendar.setStart(calendarDTOnew.getStartDate());
+        existingCalendar.setEnd(calendarDTOnew.getEndDate());
+
+        calendarRepository.save(existingCalendar);
     }
 }
 

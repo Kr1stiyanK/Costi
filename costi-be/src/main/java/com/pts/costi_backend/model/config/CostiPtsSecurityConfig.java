@@ -37,6 +37,7 @@ public class CostiPtsSecurityConfig {
                 .requestMatchers("/application/delete-event").hasAuthority("ROLE_ANONYMOUS")
                 .requestMatchers("/application/delete-all").hasAuthority("ROLE_ANONYMOUS")
                 .requestMatchers("/application/get-events").hasAuthority("ROLE_ANONYMOUS")
+                .requestMatchers("/application/edit-event").hasAuthority("ROLE_ANONYMOUS")
                 .requestMatchers("/users/logout").hasAuthority("ROLE_ANONYMOUS")
                 .and()
                 .formLogin(Customizer.withDefaults())
