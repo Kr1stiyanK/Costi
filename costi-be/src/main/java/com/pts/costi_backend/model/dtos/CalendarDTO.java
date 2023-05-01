@@ -15,6 +15,12 @@ public class CalendarDTO {
     public CalendarDTO() {
     }
 
+    public CalendarDTO(String title, Date start, Date end) {
+        this.title = title;
+        this.start = start;
+        this.end = end;
+    }
+
     public String getTitle() {
         return title;
     }

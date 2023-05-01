@@ -2,6 +2,7 @@ package com.pts.costi_backend.web;
 
 import com.pts.costi_backend.model.CalendarObjEntity;
 import com.pts.costi_backend.model.dtos.CalendarDTO;
+import com.pts.costi_backend.model.dtos.EditDTO;
 import com.pts.costi_backend.model.repositories.CalendarRepository;
 import com.pts.costi_backend.model.services.CalendarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,8 @@ public class CalendarController {
     }
 
     @PostMapping("/edit-event")
-    public ResponseEntity<Void> editEvent(@RequestBody CalendarDTO calendarDTOold, @RequestBody CalendarDTO calendarDTOnew) {
-        calendarService.replaceCalendarEvent(calendarDTOold, calendarDTOnew);
+    public ResponseEntity<Void> editEvent(@RequestBody EditDTO editObject) {
+        calendarService.replaceCalendarEvent(new CalendarDTO(editObject.getTitleOld(), editObject.getStartOld(),editObject.getEndOld()), new CalendarDTO(editObject.getTitleNew(), editObject.getStartNew(),editObject.getEndNew()));
         return ResponseEntity.ok().build();
     }
 
