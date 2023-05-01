@@ -29,6 +29,12 @@ public class CalendarController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/edit-event")
+    public ResponseEntity<Void> editEvent(@RequestBody CalendarDTO calendarDTOold, @RequestBody CalendarDTO calendarDTOnew) {
+        calendarService.replaceCalendarEvent(calendarDTOold, calendarDTOnew);
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/get-events")
     public ResponseEntity<List<CalendarObjEntity>> getEvents() {
         return ResponseEntity.ok(this.calendarService.getAllEvents());
@@ -45,10 +51,10 @@ public class CalendarController {
         }
     }
 
-    @PostMapping("/delete-all")
-    public ResponseEntity<Void> deleteAllEvents() {
-        calendarService.deleteAllEvents();
-        return null;
-    }
+//    @PostMapping("/delete-all")
+//    public ResponseEntity<Void> deleteAllEvents() {
+//        calendarService.deleteAllEvents();
+//        return null;
+//    }
 
 }
