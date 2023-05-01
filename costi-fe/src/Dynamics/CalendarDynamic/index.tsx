@@ -10,7 +10,7 @@ const CalendarDynamic = () => {
 
   const handleSelectSlot = (newDates: Event) => {
     newDates.title = prompt("Appointment Name");
-    if (newDates.title === "") return
+    if (newDates.title === "") return;
 
     POST("/application/event", {
       title: newDates.title,
@@ -24,18 +24,15 @@ const CalendarDynamic = () => {
 
   const handleDoubleClick = (editable: Event) => {
     const tempTitle: string | null = prompt("Appointment Name");
-    POST("/application/edit-event", [
-      {
-        title: editable.title,
-        start: editable.start,
-        end: editable.end,
-      },
-      {
-        title: tempTitle,
-        start: editable.start,
-        end: editable.end,
-      },
-    ])
+
+    POST("/application/edit-event", {
+      titleOld: editable.title,
+      startOld: editable.start,
+      endOld: editable.end,
+      titleNew: tempTitle,
+      startNew: editable.start,
+      endNew: editable.end,
+    })
       .then(() => loadMapEvents())
       .catch(() => loadMapEvents());
   };
@@ -52,8 +49,7 @@ const CalendarDynamic = () => {
           };
         })
       );
-    }
-    );
+    });
 
   useEffect(() => {
     loadMapEvents();
