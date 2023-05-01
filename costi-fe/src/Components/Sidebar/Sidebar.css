@@ -1,0 +1,35 @@
+.logo {
+  color: white;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.side-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 18%;
+  min-width: 8rem;
+  backdrop-filter: blur(20px) saturate(150%);
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.logout-btn {
+  width: 100%;
+  padding: 15px;
+  background-color: #0d0c17;
+  border: none;
+  color: white;
+  font-size: larger;
+}
+
+.logout-btn:hover {
+  background-color: #121025;
+}

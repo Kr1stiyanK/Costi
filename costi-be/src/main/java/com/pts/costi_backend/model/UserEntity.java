@@ -9,17 +9,24 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    //Test
 
+    @Column(nullable = false, unique = true)
     private String email;
-
+    @Column(nullable = false, unique = true)
     private String username;
 
+    @Column(nullable = false)
     private String password;
 
-    public UserEntity(String email, String username, String password) {
+    @Column(nullable = false)
+    private String roles;
+
+    public UserEntity(String email, String username, String password, String roles) {
         this.email = email;
         this.username = username;
         this.password = password;
+        this.roles = roles;
     }
 
     public UserEntity() {
@@ -58,6 +65,15 @@ public class UserEntity {
 
     public UserEntity setPassword(String password) {
         this.password = password;
+        return this;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public UserEntity setRoles(String roles) {
+        this.roles = roles;
         return this;
     }
 }
