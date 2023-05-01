@@ -1,13 +1,10 @@
 package com.pts.costi_backend.model.services;
 
 import com.pts.costi_backend.model.UserEntity;
-import com.pts.costi_backend.model.dtos.UserLoginDTO;
 import com.pts.costi_backend.model.dtos.UserRegistrationDTO;
 import com.pts.costi_backend.model.repositories.UserEntityRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Objects;
 
 @Service
 public class UserEntityService {
@@ -29,6 +26,9 @@ public class UserEntityService {
                         passwordEncoder.encode(userRegistrationDTO.getPassword()),
                         "ROLE_USER");
                 this.userEntityRepository.save(newUser);
+
+
+
                 return true;
             }
         return false;
