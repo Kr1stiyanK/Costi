@@ -23,7 +23,7 @@ const CalendarDynamic = () => {
   };
 
   const handleDoubleClick = (editable: Event) => {
-    const tempTitle = prompt("Appointment Name");
+    const tempTitle: string | null = prompt("Appointment Name");
     POST("/application/edit-event", [
       {
         title: editable.title,
@@ -41,16 +41,18 @@ const CalendarDynamic = () => {
   };
 
   const loadMapEvents = () =>
-    eventsApiCall().then((data: Event[]) =>
+    eventsApiCall().then((data: Event[]) => {
+      console.log(data);
       setCurrentEvents(
         data.map((it) => {
           return {
             title: it.title,
             start: new Date(it.start!.toString()),
-            end: new Date(it.start!.toString()),
+            end: new Date(it.end!.toString()),
           };
         })
-      )
+      );
+    }
     );
 
   useEffect(() => {
