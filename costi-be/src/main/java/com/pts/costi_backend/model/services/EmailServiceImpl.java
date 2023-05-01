@@ -3,11 +3,11 @@ package com.pts.costi_backend.model.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Component;
 
-@Configuration
+@Component
 public class EmailServiceImpl implements EmailService {
     Logger logger = LoggerFactory.getLogger(EmailServiceImpl.class);
 
@@ -18,6 +18,7 @@ public class EmailServiceImpl implements EmailService {
     public void sendSimpleMessage(String toEmail,
                                   String body,
                                   String subject) {
+
         SimpleMailMessage message = new SimpleMailMessage();
 //        If using gmail instead of MailTrap uncomment
 //        message.setFrom("erikul1994@gmail.com");

@@ -3,6 +3,7 @@ import com.pts.costi_backend.model.repositories.UserEntityRepository;
 import com.pts.costi_backend.model.services.UserSecurityDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.mail.MailSender;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -12,6 +13,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
+import java.util.Properties;
 
 @Configuration
 public class CostiPtsSecurityConfig {
@@ -63,8 +66,21 @@ public class CostiPtsSecurityConfig {
     }
 
     @Bean
-    public JavaMailSender javaMailSender(){
-        return new JavaMailSenderImpl();
+    public JavaMailSender getJavaMailSender() {
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        mailSender.setHost("smtp.mailtrap.io");
+        mailSender.setPort(587);
+
+        mailSender.setUsername("53419e4a7b186b");
+        mailSender.setPassword("65fe3fb0a4da3f");
+
+        Properties props = mailSender.getJavaMailProperties();
+        props.put("mail.transport.protocol", "smtp");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.debug", "true");
+
+        return mailSender;
     }
 
 }
