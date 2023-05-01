@@ -1,6 +1,6 @@
 import "./EditEvent.css";
 import React, { useEffect, useState } from "react";
-import { GET, POST } from "../../api";
+import { POST } from "../../api";
 import { eventsApiCall } from "../config";
 import { Event } from "react-big-calendar";
 
@@ -8,7 +8,8 @@ const EditEvent = () => {
   const [title, setTitle] = useState<string>(""),
     [startDate, setStartDate] = useState<Date | null>(null),
     [endDate, setEndDate] = useState<Date | null>(null),
-    [userEvents, setUserEvents] = useState<Event[]>([]);
+    [userEvents, setUserEvents] = useState<Event[]>([]),
+    [initialEvent, setInitialEvent] = useState<Event>({});
 
   const handleTitleChange = (newTitle: string) => {
     setTitle(newTitle);
@@ -23,18 +24,16 @@ const EditEvent = () => {
   };
 
   const handleSave = () => {
-    POST("/application/event", {
-      title: title,
-      startDate: startDate,
-      endDate: endDate,
+    POST("/application/edit-event", {
+      titleOld: initialEvent.title,
+      startOld: initialEvent.start,
+      endOld: initialEvent.end,
+      titleNew: title,
+      startNew: startDate,
+      endNew: endDate,
     })
-      .then(() => {
-        loadMapEvents();
-      })
-      .catch((e) => {
-        loadMapEvents();
-        console.log("Error " + e);
-      });
+        .then(() => loadMapEvents())
+        .catch(() => loadMapEvents());
   };
 
   const handleDeleteEvent = (event: Event) => {
@@ -55,6 +54,8 @@ const EditEvent = () => {
   };
 
   const handleEventClick = (editable: Event) => {
+    setInitialEvent(editable);
+
     setTitle(editable.title as string);
     setStartDate(editable.start as Date);
     setEndDate(editable.end as Date);
