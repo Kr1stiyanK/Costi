@@ -3,6 +3,8 @@ import com.pts.costi_backend.model.repositories.UserEntityRepository;
 import com.pts.costi_backend.model.services.UserSecurityDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -58,6 +60,11 @@ public class CostiPtsSecurityConfig {
         authenticationProvider.setUserDetailsService(userDetailsService());
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
+    }
+
+    @Bean
+    public JavaMailSender javaMailSender(){
+        return new JavaMailSenderImpl();
     }
 
 }
